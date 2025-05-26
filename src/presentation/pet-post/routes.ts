@@ -4,6 +4,8 @@ import { CreatorPetPostService } from './services/creator-pet-post.service';
 import { FinderPetPostService } from './services/finder-pet-post.service';
 import { ApprovePetPostService } from './services/approve-pet-post.service';
 import { RejectPetPostService } from './services/reject-pet-post.service';
+import { UpdatePetPostService } from './services/update-pet-post.service';
+import { EliminatorPetPostService } from './services/eliminator-pet-post.service';
 
 export class PetPostRoutes {
   static get routes() {
@@ -15,12 +17,18 @@ export class PetPostRoutes {
       finderPetPostService,
     );
     const rejectPetPostService = new RejectPetPostService(finderPetPostService);
+    const updatePetPostService = new UpdatePetPostService(finderPetPostService);
+    const deletePetPostService = new EliminatorPetPostService(
+      finderPetPostService,
+    );
 
     const controller = new PetPostController(
       creatorPetPostService,
       finderPetPostService,
       approvePetPostService,
       rejectPetPostService,
+      updatePetPostService,
+      deletePetPostService,
     );
 
     router.post('/', controller.create);
@@ -28,6 +36,8 @@ export class PetPostRoutes {
     router.get('/:id', controller.findOne);
     router.patch('/:id/approve', controller.approve);
     router.patch('/:id/reject', controller.reject);
+    router.patch('/:id', controller.update);
+    router.delete('/:id', controller.delete);
 
     return router;
   }
