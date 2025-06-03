@@ -5,6 +5,7 @@ import { ApprovePetPostService } from './services/approve-pet-post.service';
 import { RejectPetPostService } from './services/reject-pet-post.service';
 import { UpdatePetPostService } from './services/update-pet-post.service';
 import { EliminatorPetPostService } from './services/eliminator-pet-post.service';
+import { handleError } from '../common/errors/handleError';
 
 export class PetPostController {
   constructor(
@@ -20,19 +21,14 @@ export class PetPostController {
     this.creatorPetPostService
       .execute(req.body)
       .then((petPost) => res.status(201).json(petPost))
-      .catch((error) => {
-        console.error(error);
-        res.status(500).json({ message: 'Internal Server Error' });
-      });
+      .catch((error) => handleError(error, res));
   };
 
   findAll = (req: Request, res: Response) => {
     this.finderPetPostService
       .executeByFindAll()
       .then((petPost) => res.status(200).json(petPost))
-      .catch((error) => {
-        res.status(500).json({ message: 'Internal Server Error' });
-      });
+      .catch((error) => handleError(error, res));
   };
 
   findOne = (req: Request, res: Response) => {
@@ -40,9 +36,7 @@ export class PetPostController {
     this.finderPetPostService
       .executeByFindOne(id)
       .then((petPost) => res.status(200).json(petPost))
-      .catch((error) => {
-        res.status(500).json({ message: 'Internal Server Error' });
-      });
+      .catch((error) => handleError(error, res));
   };
 
   approve = (req: Request, res: Response) => {
@@ -50,9 +44,7 @@ export class PetPostController {
     this.approvePetPostService
       .execute(id)
       .then((petPost) => res.status(200).json(petPost))
-      .catch((error) => {
-        res.status(500).json({ message: 'Internal Server Error' });
-      });
+      .catch((error) => handleError(error, res));
   };
 
   reject = (req: Request, res: Response) => {
@@ -60,10 +52,7 @@ export class PetPostController {
     this.rejectPetPostService
       .execute(id)
       .then((result) => res.status(200).json(result))
-      .catch((error) => {
-        console.error(error);
-        res.status(500).json({ message: 'Internal Server Error' });
-      });
+      .catch((error) => handleError(error, res));
   };
 
   update = async (req: Request, res: Response) => {
@@ -73,10 +62,7 @@ export class PetPostController {
     this.updatePetPostService
       .execute(id, data)
       .then((result) => res.status(200).json(result))
-      .catch((error) => {
-        console.error(error);
-        res.status(500).json({ message: 'Internal Server Error' });
-      });
+      .catch((error) => handleError(error, res));
   };
 
   delete = async (req: Request, res: Response) => {
@@ -85,9 +71,6 @@ export class PetPostController {
     this.eliminatorPetPostService
       .execute(id)
       .then((result) => res.status(200).json(result))
-      .catch((error) => {
-        console.error(error);
-        res.status(500).json({ message: 'Internal Server Error' });
-      });
+      .catch((error) => handleError(error, res));
   };
 }

@@ -1,3 +1,4 @@
+import { CustomError } from '../../../domain';
 import { FinderUserService } from './finder-user.service';
 
 export class EliminatorUserService {
@@ -16,7 +17,7 @@ export class EliminatorUserService {
         message: 'User deleted successfully',
       };
     } catch (error) {
-      throw new Error('Error deleting User');
+      throw CustomError.internalServer('Internal Server Error');
     }
   }
 }

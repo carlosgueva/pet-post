@@ -1,4 +1,5 @@
 import { User } from '../../../data';
+import { CustomError } from '../../../domain';
 
 export class FinderUserService {
   async executeByFindAll() {
@@ -18,7 +19,7 @@ export class FinderUserService {
     });
 
     if (!user) {
-      throw new Error('User not found');
+      throw CustomError.notFound('User not found');
     }
 
     return user;

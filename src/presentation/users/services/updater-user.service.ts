@@ -1,3 +1,4 @@
+import { CustomError } from '../../../domain';
 import { FinderUserService } from './finder-user.service';
 
 export class UpdateUserService {
@@ -18,7 +19,7 @@ export class UpdateUserService {
     try {
       return await user.save();
     } catch (error) {
-      throw new Error('Failed to update user');
+      throw CustomError.internalServer('Internal Server Error');
     }
   }
 }

@@ -1,3 +1,4 @@
+import { CustomError } from '../../../domain';
 import { FinderPetPostService } from './finder-pet-post.service';
 
 export class EliminatorPetPostService {
@@ -16,7 +17,7 @@ export class EliminatorPetPostService {
         message: 'Pet post deleted successfully',
       };
     } catch (error) {
-      throw new Error('Error deleting pet post');
+      throw CustomError.internalServer('Internal Server Error');
     }
   }
 }

@@ -1,4 +1,5 @@
 import { PetPost } from '../../../data';
+import { CustomError } from '../../../domain';
 
 export class CreatorPetPostService {
   async execute(data: any) {
@@ -11,7 +12,7 @@ export class CreatorPetPostService {
     try {
       return await petPost.save();
     } catch (error) {
-      throw new Error('Failed to create pet post');
+      throw CustomError.internalServer('Internal Server Error');
     }
   }
 }

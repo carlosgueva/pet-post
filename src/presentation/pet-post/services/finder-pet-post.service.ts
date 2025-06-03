@@ -1,4 +1,5 @@
 import { PetPost, PetPostStatus } from '../../../data';
+import { CustomError } from '../../../domain';
 
 export class FinderPetPostService {
   async executeByFindAll() {
@@ -18,7 +19,7 @@ export class FinderPetPostService {
     });
 
     if (!petPost) {
-      throw new Error('Pet post not found');
+      throw CustomError.notFound('Pet not found');
     }
 
     return petPost;
