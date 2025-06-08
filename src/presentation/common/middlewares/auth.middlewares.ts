@@ -23,6 +23,10 @@ export class AuthMiddleware {
 
       if (!user) return res.status(401).json({ message: 'invalid token' });
 
+      if (!req.body) {
+        req.body = {};
+      }
+
       req.body.sessionUser = user;
       next();
     } catch (error) {

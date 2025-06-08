@@ -13,6 +13,7 @@ export class FinderUserService {
 
   async executeByFindOne(id: string) {
     const user = await User.findOne({
+      select: ['id', 'name', 'email', 'rol'],
       where: {
         id,
       },

@@ -11,7 +11,7 @@ export class CreatorUserService {
     user.password = encriptAdapter.hash(data.password.trim());
     try {
       await user.save();
-      return 'User created successfully';
+      return user;
     } catch (error) {
       CustomError.internalServer('Internal Server Error');
     }
